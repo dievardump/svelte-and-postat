@@ -1,0 +1,10 @@
+%fancyBg {
+  background: linear-gradient(
+    50deg,
+    #030075 0%,
+    #162fbc 40%,
+    #23a5f8 70%,
+    #91ddc1 80%,
+    #f8f26a 100%
+  );
+}
