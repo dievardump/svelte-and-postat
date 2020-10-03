@@ -1,1 +1,1 @@
-Example on how to use `postcss-postat` with svelte to post-process emitted bundled css.
+Example on how to use `postcss-postat` with svelte to post-process emitted bundled css and add new AtRules.
