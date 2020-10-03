@@ -3,25 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const postcss = require('postcss');
 
-function postat(opts = {}) {
-  const { transformers = {} } = opts;
-  return (root) => {
-    root.walkDecls((node) => {
-      if (node.prop.indexOf('-postat-') === 0) {
-        let name = node.prop.replace('-postat-', '');
-        let value = node.value;
-        if ('function' === typeof transformers[name]) {
-          [name, value] = transformers[name](name, value, node);
-        }
-
-        let atRule = new postcss.AtRule({ name, params: value });
-        node.parent.append(atRule);
-        node.remove();
-      }
-    });
-  };
-}
-
 const append = postcss.plugin('postcss-append', (opts) => {
   if (!opts) {
     return null;
@@ -42,7 +23,7 @@ export default (options) => {
     // preprend the file declaring the placeholders
     // you could also just append the content of the file without having to use postcss-import
     append('src/css/placeholders.css'),
-    postat({
+    require('postcss-postat')({
       transformers: {
         'extend-ph': (name, value, node) => {
           name = name.replace('-ph', '');
